@@ -1,24 +1,20 @@
+import * as fs from 'node:fs';
 import * as vscode from 'vscode';
-import type { IDataProvider } from '../data/mockDataProvider';
-import { notesPanelHtml, readRunNotes, resolveRunNotesPath } from './notesPanel';
+import { notesPanelHtml } from './notesPanel';
 
 let panel: vscode.WebviewPanel | undefined;
 
-export async function openRunNotesEditor(
-  data: IDataProvider,
-  runId: string,
-): Promise<void> {
-  const notesPath = resolveRunNotesPath(data.getFixturesRoot(), runId);
+export async function openRunNotesEditor(notesPath: string): Promise<void> {
   const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(notesPath));
   await vscode.window.showTextDocument(doc, { preview: false });
 }
 
 export function openRunNotesPanel(
   context: vscode.ExtensionContext,
-  data: IDataProvider,
   runId: string,
+  notesPath: string,
 ): void {
-  const markdown = readRunNotes(data.getFixturesRoot(), runId);
+  const markdown = fs.readFileSync(notesPath, 'utf8');
 
   if (panel) {
     panel.title = `Notes: ${runId}`;

@@ -1,15 +1,15 @@
 import * as vscode from 'vscode';
-import type { IDataProvider } from '../data/mockDataProvider';
+import type { RunDataService } from '../run/runDataService';
 import { TestBedTreeItem, TestBedTreeProvider } from './baseTreeProvider';
 
 export class RunsTreeProvider extends TestBedTreeProvider {
-  constructor(private readonly data: IDataProvider) {
+  constructor(private readonly runs: RunDataService) {
     super();
   }
 
   getChildren(element?: TestBedTreeItem): TestBedTreeItem[] {
     if (!element) {
-      return this.data.listRuns().map(
+      return this.runs.listRuns().map(
         (run) =>
           new TestBedTreeItem(run.runId, vscode.TreeItemCollapsibleState.Collapsed, {
             description: run.status,
@@ -18,14 +18,14 @@ export class RunsTreeProvider extends TestBedTreeProvider {
                 ? `mean Dice ${run.meanDice.toFixed(3)}`
                 : run.runId,
             contextValue: 'runFolder',
-            iconId: 'folder-active',
+            iconId: run.runId.startsWith('exp_mock_') ? 'rocket' : 'folder-active',
           }),
       );
     }
 
     if (element.contextValue === 'runFolder') {
       const runId = String(element.label);
-      return this.data.listRunArtifacts(runId).map((a) => {
+      return this.runs.listRunArtifacts(runId).map((a) => {
         const iconId =
           a.name.endsWith('.json') ? 'graph' :
           a.name.endsWith('.md') ? 'markdown' :

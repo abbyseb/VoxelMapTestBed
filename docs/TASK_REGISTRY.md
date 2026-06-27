@@ -34,7 +34,7 @@ Every BUILD_PLAN task ID must be listed here before marking **verified: yes**.
 | 1.2.3 | Profile picker | implemented | profiles.test.ts | yes | 2026-06-27 | agent |
 | 1.2.4 | Experiment editor | implemented | experimentEditor.test.ts | yes | 2026-06-27 | agent |
 | 1.2.5 | Notes panel | implemented | notesPanel.test.ts | yes | 2026-06-27 | agent |
-| 1.2.6 | Simulated run job | pending | — | no | — | — |
+| 1.2.6 | Simulated run job | implemented | mockRunJob.test.ts | yes | 2026-06-27 | agent |
 | 1.2.7 | Welcome webview | pending | — | no | — | — |
 
 ## Phase 1.3

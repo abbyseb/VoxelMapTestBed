@@ -7,6 +7,7 @@ import { ExperimentsTreeProvider } from '../providers/experimentsTreeProvider';
 import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
 import { TestBedSession } from '../session/testBedSession';
+import { RunDataService } from '../run/runDataService';
 
 const FIXTURES = resolve(__dirname, '../../../../fixtures');
 const mockData = new MockDataProvider(FIXTURES);
@@ -52,7 +53,7 @@ describe('1.1.2 sidebar views', () => {
     expect(commands).toContain('vmtb.gold.verify');
     expect(commands).toContain('vmtb.gold.filterTags');
     expect(commands).toContain('vmtb.gold.pickProfile');
-    expect(commands).toContain('vmtb.experiment.openPreview');
+    expect(commands).toContain('vmtb.experiment.run');
     expect(commands).toContain('vmtb.experiments.refresh');
     expect(commands).toContain('vmtb.runs.refresh');
     expect(commands).toContain('vmtb.leaderboard.refresh');
@@ -67,7 +68,8 @@ describe('1.1.2 sidebar views', () => {
   });
 
   it('RunsTreeProvider lists demo runs from fixtures', () => {
-    const p = new RunsTreeProvider(mockData);
+    const runService = new RunDataService(mockData);
+    const p = new RunsTreeProvider(runService);
     const items = p.getChildren();
     expect(items.map((i) => i.label)).toContain('exp_demo_baseline');
     expect(items.map((i) => i.label)).toContain('exp_demo_custom');

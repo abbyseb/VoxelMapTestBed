@@ -1,17 +1,18 @@
 import * as vscode from 'vscode';
 import { createDataProvider } from '../data/createDataProvider';
 import type { IDataProvider } from '../data/mockDataProvider';
-import { ExperimentsTreeProvider } from '../providers/experimentsTreeProvider';
-import { GoldTreeProvider } from '../providers/goldTreeProvider';
-import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
-import { RunsTreeProvider } from '../providers/runsTreeProvider';
-import { TestBedSession } from '../session/testBedSession';
 import {
   openExperimentEditorWebview,
   openExperimentFixture,
 } from '../experiment/registerExperimentEditor';
 import { openRunNotesEditor, openRunNotesPanel } from '../notes/registerNotesPanel';
-import * as path from 'node:path';
+import { ExperimentsTreeProvider } from '../providers/experimentsTreeProvider';
+import { GoldTreeProvider } from '../providers/goldTreeProvider';
+import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
+import { RunsTreeProvider } from '../providers/runsTreeProvider';
+import { runSimulatedExperiment } from '../run/registerMockRunJob';
+import { RunDataService } from '../run/runDataService';
+import { TestBedSession } from '../session/testBedSession';
 
 const VIEW = {
   gold: 'vmtb.gold',
@@ -27,6 +28,7 @@ export interface SidebarViews {
   leaderboard: LeaderboardTreeProvider;
   data: IDataProvider;
   session: TestBedSession;
+  runService: RunDataService;
 }
 
 function refreshAll(views: SidebarViews): void {
@@ -50,12 +52,14 @@ export function registerSidebarViews(
     return undefined;
   }
 
+  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
   const session = new TestBedSession(data);
+  const runService = new RunDataService(data, workspaceRoot);
   const gold = new GoldTreeProvider(data, session);
   const experiments = new ExperimentsTreeProvider(data, session);
-  const runs = new RunsTreeProvider(data);
+  const runs = new RunsTreeProvider(runService);
   const leaderboard = new LeaderboardTreeProvider(data);
-  const views = { gold, experiments, runs, leaderboard, data, session };
+  const views = { gold, experiments, runs, leaderboard, data, session, runService };
 
   session.onDidChange(() => {
     gold.refresh();
@@ -117,19 +121,31 @@ export function registerSidebarViews(
     vscode.commands.registerCommand('vmtb.experiment.edit', () =>
       openExperimentEditorWebview(context, session),
     ),
+    vscode.commands.registerCommand('vmtb.experiment.run', async () => {
+      const runId = await runSimulatedExperiment(data, session, runService);
+      if (runId) {
+        void vscode.window.showInformationMessage(`Mock run created: ${runId}`);
+        runs.refresh();
+        leaderboard.refresh();
+      }
+    }),
     vscode.commands.registerCommand('vmtb.notes.open', (runId: string) => {
-      openRunNotesPanel(context, data, runId);
-      void openRunNotesEditor(data, runId);
+      const notesPath = runService.resolveArtifactPath(runId, 'notes.md');
+      if (!notesPath) {
+        void vscode.window.showErrorMessage(`notes.md not found for ${runId}`);
+        return;
+      }
+      openRunNotesPanel(context, runId, notesPath);
+      void openRunNotesEditor(notesPath);
     }),
     vscode.commands.registerCommand(
       'vmtb.runs.openArtifact',
       async (runId: string, artifactName: string) => {
-        const filePath = path.join(
-          data.getFixturesRoot(),
-          'runs',
-          runId,
-          artifactName === 'metrics.json' ? 'test/metrics.json' : artifactName,
-        );
+        const filePath = runService.resolveArtifactPath(runId, artifactName);
+        if (!filePath) {
+          void vscode.window.showErrorMessage(`${artifactName} not found for ${runId}`);
+          return;
+        }
         const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
         await vscode.window.showTextDocument(doc, { preview: true });
       },

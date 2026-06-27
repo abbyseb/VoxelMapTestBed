@@ -5,6 +5,7 @@ import { MockDataProvider } from '../data/mockDataProvider';
 import { GoldTreeProvider } from '../providers/goldTreeProvider';
 import { TestBedSession } from '../session/testBedSession';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
+import { RunDataService } from '../run/runDataService';
 
 const FIXTURES = resolve(__dirname, '../../../../fixtures');
 
@@ -52,7 +53,8 @@ describe('1.1.6 MockDataProvider', () => {
   });
 
   it('RunsTreeProvider lists artifact files from fixtures', () => {
-    const tree = new RunsTreeProvider(provider);
+    const runService = new RunDataService(provider);
+    const tree = new RunsTreeProvider(runService);
     const run = tree.getChildren().find((r) => r.label === 'exp_demo_baseline');
     expect(run).toBeDefined();
     const files = tree.getChildren(run!).map((f) => f.label);

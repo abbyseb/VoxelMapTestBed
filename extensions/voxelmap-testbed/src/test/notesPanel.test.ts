@@ -7,6 +7,7 @@ import {
   resolveRunNotesPath,
 } from '../notes/notesPanel';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
+import { RunDataService } from '../run/runDataService';
 import { MockDataProvider } from '../data/mockDataProvider';
 
 const FIXTURES = resolve(__dirname, '../../../../fixtures');
@@ -33,7 +34,8 @@ describe('1.2.5 notesPanel', () => {
   });
 
   it('Runs tree wires notes.md open command', () => {
-    const tree = new RunsTreeProvider(data);
+    const runService = new RunDataService(data);
+    const tree = new RunsTreeProvider(runService);
     const run = tree.getChildren().find((r) => r.label === 'exp_demo_baseline');
     const notes = tree.getChildren(run!).find((a) => a.label === 'notes.md');
     expect(notes?.command?.command).toBe('vmtb.notes.open');

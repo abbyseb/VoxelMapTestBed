@@ -1,5 +1,9 @@
 import { vi } from 'vitest';
 
+export enum ProgressLocation {
+  Notification = 15,
+}
+
 export enum TreeItemCheckboxState {
   Unchecked = 0,
   Checked = 1,
@@ -63,14 +67,19 @@ vi.mock('vscode', () => {
     })),
     createWebviewPanel: vi.fn(() => ({
       webview: { html: '', onDidReceiveMessage: vi.fn(() => ({ dispose: vi.fn() })) },
-      onDidDispose: vi.fn((cb: () => void) => {
-        cb();
-        return { dispose: vi.fn() };
-      }),
+      onDidDispose: vi.fn(() => ({ dispose: vi.fn() })),
       reveal: vi.fn(),
       dispose: vi.fn(),
       title: '',
     })),
+    withProgress: vi.fn(
+      async (
+        _opts: unknown,
+        task: (progress: { report: (v: unknown) => void }) => Promise<void>,
+      ) => {
+        await task({ report: vi.fn() });
+      },
+    ),
   };
 
   const workspace = {
@@ -84,6 +93,7 @@ vi.mock('vscode', () => {
   };
 
   return {
+    ProgressLocation,
     TreeItemCheckboxState,
     TreeItemCollapsibleState,
     ThemeIcon,

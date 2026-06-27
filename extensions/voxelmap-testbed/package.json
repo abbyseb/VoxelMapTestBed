@@ -61,7 +61,7 @@
       },
       {
         "view": "vmtb.experiments",
-        "contents": "Experiment YAML specs.\n[Edit preview](command:vmtb.experiment.edit)\n[Initialize workspace](command:vmtb.initWorkspace)\n[Refresh](command:vmtb.experiments.refresh)"
+        "contents": "Experiment YAML specs.\n[Run experiment (mock)](command:vmtb.experiment.run)\n[Edit preview](command:vmtb.experiment.edit)\n[Initialize workspace](command:vmtb.initWorkspace)\n[Refresh](command:vmtb.experiments.refresh)"
       },
       {
         "view": "vmtb.runs",
@@ -87,6 +87,11 @@
         {
           "command": "vmtb.gold.filterTags",
           "when": "view == vmtb.gold",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.experiment.run",
+          "when": "view == vmtb.experiments",
           "group": "navigation"
         },
         {
@@ -159,6 +164,11 @@
       {
         "command": "vmtb.runs.openArtifact",
         "title": "TestBed: Open Run Artifact"
+      },
+      {
+        "command": "vmtb.experiment.run",
+        "title": "TestBed: Run Experiment (mock)",
+        "icon": "$(play)"
       },
       {
         "command": "vmtb.experiment.edit",
