@@ -6,6 +6,7 @@ import { resolve } from 'node:path';
 import { ExperimentsTreeProvider } from '../providers/experimentsTreeProvider';
 import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
+import { TestBedSession } from '../session/testBedSession';
 
 const FIXTURES = resolve(__dirname, '../../../../fixtures');
 const mockData = new MockDataProvider(FIXTURES);
@@ -21,7 +22,7 @@ describe('1.1.2 sidebar views', () => {
     vi.clearAllMocks();
   });
 
-  it('registers four tree data providers when fixtures available', () => {
+  it('registers gold tree view and three other tree providers', () => {
     const context = {
       subscriptions: [] as { dispose: () => void }[],
       extensionPath: resolve(__dirname, '../..'),
@@ -29,7 +30,11 @@ describe('1.1.2 sidebar views', () => {
 
     const views = registerSidebarViews(context);
     expect(views).toBeDefined();
-    expect(vscode.window.registerTreeDataProvider).toHaveBeenCalledTimes(4);
+    expect(vscode.window.createTreeView).toHaveBeenCalledWith(
+      'vmtb.gold',
+      expect.objectContaining({ manageCheckboxStateManually: true }),
+    );
+    expect(vscode.window.registerTreeDataProvider).toHaveBeenCalledTimes(3);
   });
 
   it('registers refresh and verify commands', () => {
@@ -45,14 +50,19 @@ describe('1.1.2 sidebar views', () => {
       .mock.calls.map((c) => c[0]);
     expect(commands).toContain('vmtb.gold.refresh');
     expect(commands).toContain('vmtb.gold.verify');
+    expect(commands).toContain('vmtb.gold.filterTags');
+    expect(commands).toContain('vmtb.gold.pickProfile');
+    expect(commands).toContain('vmtb.experiment.openPreview');
     expect(commands).toContain('vmtb.experiments.refresh');
     expect(commands).toContain('vmtb.runs.refresh');
     expect(commands).toContain('vmtb.leaderboard.refresh');
   });
 
-  it('ExperimentsTreeProvider lists fixture experiments', () => {
-    const p = new ExperimentsTreeProvider(mockData);
+  it('ExperimentsTreeProvider lists preview and fixture experiments', () => {
+    const session = new TestBedSession(mockData);
+    const p = new ExperimentsTreeProvider(mockData, session);
     const items = p.getChildren();
+    expect(items[0].label).toBe('Experiment preview');
     expect(items.some((i) => String(i.label) === 'smoke.yaml')).toBe(true);
   });
 

@@ -57,7 +57,7 @@
     "viewsWelcome": [
       {
         "view": "vmtb.gold",
-        "contents": "Browse Gold packs and scan checklist (mock).\n[Verify Gold](command:vmtb.gold.verify)\n[Refresh](command:vmtb.gold.refresh)"
+        "contents": "Browse Gold packs and scan checklist.\n[Verify Gold](command:vmtb.gold.verify)\n[Refresh](command:vmtb.gold.refresh)"
       },
       {
         "view": "vmtb.experiments",
@@ -76,6 +76,16 @@
       "view/title": [
         {
           "command": "vmtb.gold.refresh",
+          "when": "view == vmtb.gold",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.gold.pickProfile",
+          "when": "view == vmtb.gold",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.gold.filterTags",
           "when": "view == vmtb.gold",
           "group": "navigation"
         },
@@ -103,10 +113,16 @@
           "type": "string",
           "enum": [
             "mock",
+            "demo",
             "live"
           ],
           "default": "mock",
-          "description": "mock = read fixtures/ ; live = backend + Gold path (Phase 4+)"
+          "description": "mock = fixtures/ only; demo = DEMO cases + fixtures runs; live = backend (Phase 4+)"
+        },
+        "vmtb.demoPath": {
+          "type": "string",
+          "default": "",
+          "description": "Folder with preprocessed DEMO cases (demo mode). e.g. /Volumes/T7 Shield/DENNIS_BACKUP/DEMO"
         },
         "vmtb.goldPath": {
           "type": "string",
@@ -125,6 +141,24 @@
         "command": "vmtb.gold.verify",
         "title": "TestBed: Verify Gold",
         "icon": "$(verified)"
+      },
+      {
+        "command": "vmtb.gold.pickProfile",
+        "title": "TestBed: Pick Gold Profile",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "vmtb.experiment.openPreview",
+        "title": "TestBed: Open Experiment Preview"
+      },
+      {
+        "command": "vmtb.gold.filterTags",
+        "title": "TestBed: Filter Gold Tags",
+        "icon": "$(filter)"
+      },
+      {
+        "command": "vmtb.gold.clearTagFilter",
+        "title": "TestBed: Clear Gold Tag Filter"
       },
       {
         "command": "vmtb.initWorkspace",

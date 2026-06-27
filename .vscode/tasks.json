@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "vmtb: watch extension",
+      "type": "shell",
+      "command": "npm run watch",
+      "options": {
+        "cwd": "${workspaceFolder}/extensions/voxelmap-testbed"
+      },
+      "problemMatcher": "$esbuild-watch",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

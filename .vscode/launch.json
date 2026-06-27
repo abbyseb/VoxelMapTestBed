@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run VoxelMap TestBed",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/extensions/voxelmap-testbed",
+        "${workspaceFolder}"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/extensions/voxelmap-testbed/dist/**/*.js"
+      ],
+      "preLaunchTask": "vmtb: watch extension"
+    }
+  ]
+}

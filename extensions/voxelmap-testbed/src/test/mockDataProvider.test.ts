@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { resolve } from 'node:path';
 import { MockDataProvider } from '../data/mockDataProvider';
 import { GoldTreeProvider } from '../providers/goldTreeProvider';
+import { TestBedSession } from '../session/testBedSession';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
 
 const FIXTURES = resolve(__dirname, '../../../../fixtures');
@@ -11,8 +12,8 @@ describe('1.1.6 MockDataProvider', () => {
   const provider = new MockDataProvider(FIXTURES);
 
   it('loads manifest from fixtures', () => {
-    expect(provider.getPackLabel()).toBe('spare-gold-smoke-v1');
-    expect(provider.listScans()).toHaveLength(2);
+    expect(provider.getPackLabel()).toBe('spare-demo-v1');
+    expect(provider.listScans()).toHaveLength(5);
   });
 
   it('verifyGold passes on fixtures', () => {
@@ -24,6 +25,7 @@ describe('1.1.6 MockDataProvider', () => {
     const exps = provider.listExperiments();
     expect(exps.length).toBeGreaterThanOrEqual(2);
     expect(exps.some((e) => e.fileName === 'smoke.yaml')).toBe(true);
+    expect(exps.every((e) => !e.fileName.startsWith('._'))).toBe(true);
   });
 
   it('lists demo runs with mean dice', () => {
@@ -38,9 +40,10 @@ describe('1.1.6 MockDataProvider', () => {
   });
 
   it('GoldTreeProvider reads manifest via MockDataProvider', () => {
-    const tree = new GoldTreeProvider(provider);
+    const session = new TestBedSession(provider);
+    const tree = new GoldTreeProvider(provider, session);
     const pack = tree.getChildren()[0];
-    expect(pack.label).toBe('spare-gold-smoke-v1');
+    expect(pack.label).toBe('spare-demo-v1');
     expect(pack.description).toContain('mock');
     const scans = tree
       .getChildren(pack)

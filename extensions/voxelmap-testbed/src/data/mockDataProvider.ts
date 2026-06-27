@@ -4,6 +4,7 @@ import {
   loadManifestFromFile,
   validateManifest,
 } from './manifest';
+import { isAppleDoubleEntry } from './fsUtil';
 import type {
   BaselinesFile,
   ExperimentEntry,
@@ -14,7 +15,8 @@ import type {
 } from './types';
 
 export interface IDataProvider {
-  readonly mode: 'mock' | 'live';
+  readonly mode: 'mock' | 'demo' | 'live';
+  getFixturesRoot(): string;
   getManifest(): GoldManifest;
   getPackLabel(): string;
   listProfiles(): Array<{ id: string; description: string; scanCount: number }>;
@@ -30,6 +32,10 @@ export class MockDataProvider implements IDataProvider {
   readonly mode = 'mock' as const;
 
   constructor(private readonly fixturesRoot: string) {}
+
+  getFixturesRoot(): string {
+    return this.fixturesRoot;
+  }
 
   getManifest(): GoldManifest {
     const m = loadManifestFromFile(path.join(this.fixturesRoot, 'manifest.yaml'));
@@ -61,6 +67,7 @@ export class MockDataProvider implements IDataProvider {
     }
     return fs
       .readdirSync(dir)
+      .filter((f) => !isAppleDoubleEntry(f))
       .filter((f) => f.endsWith('.yaml') || f.endsWith('.yml'))
       .sort()
       .map((fileName) => {
@@ -79,7 +86,7 @@ export class MockDataProvider implements IDataProvider {
     }
     return fs
       .readdirSync(dir, { withFileTypes: true })
-      .filter((d) => d.isDirectory())
+      .filter((d) => d.isDirectory() && !isAppleDoubleEntry(d.name))
       .map((d) => {
         const runId = d.name;
         const metricsPath = path.join(dir, runId, 'test', 'metrics.json');

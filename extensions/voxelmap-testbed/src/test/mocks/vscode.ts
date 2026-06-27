@@ -1,5 +1,10 @@
 import { vi } from 'vitest';
 
+export enum TreeItemCheckboxState {
+  Unchecked = 0,
+  Checked = 1,
+}
+
 export enum TreeItemCollapsibleState {
   None = 0,
   Collapsed = 1,
@@ -18,6 +23,7 @@ export class TreeItem {
   iconPath?: ThemeIcon;
   command?: { command: string; title: string };
   collapsibleState: TreeItemCollapsibleState;
+  checkboxState?: TreeItemCheckboxState;
 
   constructor(label: string, collapsibleState: TreeItemCollapsibleState) {
     this.label = label;
@@ -44,7 +50,17 @@ vi.mock('vscode', () => {
       dispose: vi.fn(),
     })),
     showInformationMessage: vi.fn(),
+    showQuickPick: vi.fn(),
+    openTextDocument: vi.fn(async (opts: { content: string }) => ({
+      getText: () => opts.content,
+      uri: { fsPath: 'untitled:preview.yaml' },
+    })),
+    showTextDocument: vi.fn(),
     registerTreeDataProvider: vi.fn(),
+    createTreeView: vi.fn(() => ({
+      onDidChangeCheckboxState: vi.fn(() => ({ dispose: vi.fn() })),
+      dispose: vi.fn(),
+    })),
   };
 
   const workspace = {
@@ -58,6 +74,7 @@ vi.mock('vscode', () => {
   };
 
   return {
+    TreeItemCheckboxState,
     TreeItemCollapsibleState,
     ThemeIcon,
     TreeItem,

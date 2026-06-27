@@ -2,6 +2,9 @@ import * as vscode from 'vscode';
 
 /** Shared tree item for all TestBed sidebar views. */
 export class TestBedTreeItem extends vscode.TreeItem {
+  /** Set on Gold checklist scan rows for checkbox handling. */
+  scanId?: string;
+
   constructor(
     label: string,
     collapsibleState: vscode.TreeItemCollapsibleState,

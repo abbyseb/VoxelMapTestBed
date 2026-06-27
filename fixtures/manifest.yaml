@@ -1,9 +1,9 @@
 schema_version: 1
-pack_id: spare-gold-smoke-v1
+pack_id: spare-demo-v1
 created: 2026-06-27
 preprocessing:
   pipeline_version: 1.0.0
-  learn_gui_commit: mock-fixture
+  learn_gui_commit: demo-fixture
   grid_size: 128
   spare_password_applied: true
 
@@ -14,20 +14,39 @@ datasets:
 
 scans:
   - scan_id: MC_V_P1_NS_01
-    path: packs/MC_V_P1_NS_01
-    split_roles: [train, benchmark]
-    tags: [mc, validation, ns, p1, session_01]
-  - scan_id: MC_V_P2_SC_02
-    path: packs/MC_V_P2_SC_02
-    split_roles: [test, benchmark]
-    tags: [mc, validation, sc, p2, session_02]
+    path: MC_V_P1_NS_01
+    split_roles: [benchmark]
+    tags: [mc, validation, ns, p1]
+  - scan_id: MC_V_P1_NS_02
+    path: MC_V_P1_NS_02
+    split_roles: [benchmark]
+    tags: [mc, validation, ns, p1]
+  - scan_id: MC_T_P1_NS
+    path: MC_T_P1_NS
+    split_roles: [train]
+    tags: [mc, training, ns, p1]
+  - scan_id: MC_T_P2_SC
+    path: MC_T_P2_SC
+    split_roles: [train]
+    tags: [mc, training, sc, p2]
+  - scan_id: MC_T_P3_LD
+    path: MC_T_P3_LD
+    split_roles: [train]
+    tags: [mc, training, ld, p3]
 
 profiles:
   smoke:
-    description: Fast iteration (~2 scans)
+    description: Fast iteration (2 validation scans on DEMO)
     train: [MC_V_P1_NS_01]
-    test: [MC_V_P2_SC_02]
+    test: [MC_V_P1_NS_02]
+  train_mix:
+    description: Training cases + one validation holdout
+    train: [MC_T_P1_NS, MC_T_P2_SC]
+    test: [MC_V_P1_NS_01]
 
 checksums:
-  MC_V_P1_NS_01: sha256:mock0001
-  MC_V_P2_SC_02: sha256:mock0002
+  MC_V_P1_NS_01: sha256:demo0001
+  MC_V_P1_NS_02: sha256:demo0002
+  MC_T_P1_NS: sha256:demo0003
+  MC_T_P2_SC: sha256:demo0004
+  MC_T_P3_LD: sha256:demo0005
