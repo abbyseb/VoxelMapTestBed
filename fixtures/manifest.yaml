@@ -1,0 +1,33 @@
+schema_version: 1
+pack_id: spare-gold-smoke-v1
+created: 2026-06-27
+preprocessing:
+  pipeline_version: 1.0.0
+  learn_gui_commit: mock-fixture
+  grid_size: 128
+  spare_password_applied: true
+
+datasets:
+  - id: spare_mc
+    source: SPARE_PublicArchive
+    patients_independent: true
+
+scans:
+  - scan_id: MC_V_P1_NS_01
+    path: packs/MC_V_P1_NS_01
+    split_roles: [train, benchmark]
+    tags: [mc, validation, ns, p1, session_01]
+  - scan_id: MC_V_P2_SC_02
+    path: packs/MC_V_P2_SC_02
+    split_roles: [test, benchmark]
+    tags: [mc, validation, sc, p2, session_02]
+
+profiles:
+  smoke:
+    description: Fast iteration (~2 scans)
+    train: [MC_V_P1_NS_01]
+    test: [MC_V_P2_SC_02]
+
+checksums:
+  MC_V_P1_NS_01: sha256:mock0001
+  MC_V_P2_SC_02: sha256:mock0002

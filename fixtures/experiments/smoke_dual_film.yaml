@@ -1,0 +1,17 @@
+experiment_id: exp_smoke_dual
+name: smoke_dual_film
+model:
+  entry: models.baselines.dual:build
+  kwargs:
+    use_film: true
+data:
+  gold_pack: spare-gold-smoke-v1
+  profile: smoke
+  custom_scans: []
+train:
+  epochs: 20
+  batch_size: 8
+  lr: 1.0e-5
+notes: |
+  Second fixture for leaderboard compare.
+hypothesis: Dual arch + FiLM on smoke profile.

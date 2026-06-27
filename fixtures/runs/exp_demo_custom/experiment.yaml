@@ -1,0 +1,14 @@
+experiment_id: exp_demo_custom
+name: smoke_dual_custom
+model:
+  entry: models.custom.example_model:build
+  kwargs:
+    use_film: true
+    base_arch: dual
+data:
+  gold_pack: spare-gold-smoke-v1
+  profile: smoke
+train:
+  epochs: 20
+  batch_size: 8
+  lr: 1.0e-5

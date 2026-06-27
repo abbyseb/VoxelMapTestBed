@@ -1,24 +1,23 @@
 import * as vscode from 'vscode';
+import type { IDataProvider } from '../data/mockDataProvider';
 import { TestBedTreeItem, TestBedTreeProvider } from './baseTreeProvider';
 
-/** Experiment YAML specs in workspace — placeholder until 1.1.3. */
 export class ExperimentsTreeProvider extends TestBedTreeProvider {
+  constructor(private readonly data: IDataProvider) {
+    super();
+  }
+
   getChildren(element?: TestBedTreeItem): TestBedTreeItem[] {
     if (!element) {
-      return [
-        new TestBedTreeItem('smoke.yaml', vscode.TreeItemCollapsibleState.None, {
-          description: 'profile: smoke',
-          tooltip: 'Concat + FiLM baseline (stub)',
-          contextValue: 'experimentFile',
-          iconId: 'file',
-        }),
-        new TestBedTreeItem('smoke_dual_film.yaml', vscode.TreeItemCollapsibleState.None, {
-          description: 'dual arch',
-          tooltip: 'Second experiment stub for compare',
-          contextValue: 'experimentFile',
-          iconId: 'file',
-        }),
-      ];
+      return this.data.listExperiments().map(
+        (exp) =>
+          new TestBedTreeItem(exp.fileName, vscode.TreeItemCollapsibleState.None, {
+            description: `profile: ${exp.profile}`,
+            tooltip: exp.name,
+            contextValue: 'experimentFile',
+            iconId: 'file',
+          }),
+      );
     }
     return [];
   }

@@ -1,40 +1,40 @@
 import * as vscode from 'vscode';
+import type { IDataProvider } from '../data/mockDataProvider';
 import { TestBedTreeItem, TestBedTreeProvider } from './baseTreeProvider';
 
-/** Completed experiment runs — placeholder until fixtures/runs (1.1.5). */
 export class RunsTreeProvider extends TestBedTreeProvider {
+  constructor(private readonly data: IDataProvider) {
+    super();
+  }
+
   getChildren(element?: TestBedTreeItem): TestBedTreeItem[] {
     if (!element) {
-      return [
-        new TestBedTreeItem('exp_demo_baseline', vscode.TreeItemCollapsibleState.Collapsed, {
-          description: 'done',
-          contextValue: 'runFolder',
-          iconId: 'folder-active',
-        }),
-        new TestBedTreeItem('exp_demo_custom', vscode.TreeItemCollapsibleState.Collapsed, {
-          description: 'done',
-          contextValue: 'runFolder',
-          iconId: 'folder-active',
-        }),
-      ];
+      return this.data.listRuns().map(
+        (run) =>
+          new TestBedTreeItem(run.runId, vscode.TreeItemCollapsibleState.Collapsed, {
+            description: run.status,
+            tooltip:
+              run.meanDice !== undefined
+                ? `mean Dice ${run.meanDice.toFixed(3)}`
+                : run.runId,
+            contextValue: 'runFolder',
+            iconId: 'folder-active',
+          }),
+      );
     }
 
     if (element.contextValue === 'runFolder') {
-      return [
-        new TestBedTreeItem('experiment.yaml', vscode.TreeItemCollapsibleState.None, {
-          iconId: 'file-code',
-        }),
-        new TestBedTreeItem('notes.md', vscode.TreeItemCollapsibleState.None, {
-          iconId: 'markdown',
-        }),
-        new TestBedTreeItem('metrics.json', vscode.TreeItemCollapsibleState.None, {
-          iconId: 'graph',
-        }),
-        new TestBedTreeItem('test/', vscode.TreeItemCollapsibleState.None, {
-          description: 'artifacts',
-          iconId: 'folder',
-        }),
-      ];
+      const runId = String(element.label);
+      return this.data.listRunArtifacts(runId).map((a) => {
+        const iconId =
+          a.name.endsWith('.json') ? 'graph' :
+          a.name.endsWith('.md') ? 'markdown' :
+          a.name.endsWith('.yaml') ? 'file-code' :
+          a.kind === 'folder' ? 'folder' : 'file';
+        return new TestBedTreeItem(a.name, vscode.TreeItemCollapsibleState.None, {
+          iconId,
+        });
+      });
     }
 
     return [];

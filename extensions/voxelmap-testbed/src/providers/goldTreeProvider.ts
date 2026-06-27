@@ -1,14 +1,32 @@
 import * as vscode from 'vscode';
+import type { IDataProvider } from '../data/mockDataProvider';
 import { TestBedTreeItem, TestBedTreeProvider } from './baseTreeProvider';
 
-/** Gold pack browser — placeholder until fixtures/manifest (1.1.4). */
+function splitRoleLabel(roles: string[]): string {
+  if (roles.includes('train') && roles.includes('test')) {
+    return 'train+test';
+  }
+  if (roles.includes('train')) {
+    return 'train';
+  }
+  if (roles.includes('test')) {
+    return 'test';
+  }
+  return roles.join(',');
+}
+
 export class GoldTreeProvider extends TestBedTreeProvider {
+  constructor(private readonly data: IDataProvider) {
+    super();
+  }
+
   getChildren(element?: TestBedTreeItem): TestBedTreeItem[] {
     if (!element) {
+      const verify = this.data.verifyGold();
       return [
-        new TestBedTreeItem('spare-gold-smoke-v1', vscode.TreeItemCollapsibleState.Expanded, {
-          description: 'mock',
-          tooltip: 'Smoke Gold pack (fixtures coming in 1.1.4)',
+        new TestBedTreeItem(this.data.getPackLabel(), vscode.TreeItemCollapsibleState.Expanded, {
+          description: verify.ok ? 'mock ✓' : 'mock ✗',
+          tooltip: verify.message,
           contextValue: 'goldPack',
           iconId: 'database',
         }),
@@ -16,9 +34,10 @@ export class GoldTreeProvider extends TestBedTreeProvider {
     }
 
     if (element.contextValue === 'goldPack') {
+      const m = this.data.getManifest();
       return [
         new TestBedTreeItem('Manifest', vscode.TreeItemCollapsibleState.None, {
-          description: 'v1 stub',
+          description: `v${m.schema_version}`,
           iconId: 'file-code',
         }),
         new TestBedTreeItem('Profiles', vscode.TreeItemCollapsibleState.Collapsed, {
@@ -33,25 +52,25 @@ export class GoldTreeProvider extends TestBedTreeProvider {
     }
 
     if (element.contextValue === 'goldProfiles') {
-      return [
-        new TestBedTreeItem('smoke', vscode.TreeItemCollapsibleState.None, {
-          description: '2 scans',
-          iconId: 'beaker',
-        }),
-      ];
+      return this.data.listProfiles().map(
+        (p) =>
+          new TestBedTreeItem(p.id, vscode.TreeItemCollapsibleState.None, {
+            description: `${p.scanCount} scans`,
+            tooltip: p.description,
+            iconId: 'beaker',
+          }),
+      );
     }
 
     if (element.contextValue === 'goldScans') {
-      return [
-        new TestBedTreeItem('MC_V_P1_NS_01', vscode.TreeItemCollapsibleState.None, {
-          description: 'train',
-          iconId: 'file-binary',
-        }),
-        new TestBedTreeItem('MC_V_P2_SC_02', vscode.TreeItemCollapsibleState.None, {
-          description: 'test',
-          iconId: 'file-binary',
-        }),
-      ];
+      return this.data.listScans().map(
+        (s) =>
+          new TestBedTreeItem(s.scan_id, vscode.TreeItemCollapsibleState.None, {
+            description: splitRoleLabel(s.split_roles),
+            tooltip: s.tags.join(', '),
+            iconId: 'file-binary',
+          }),
+      );
     }
 
     return [];

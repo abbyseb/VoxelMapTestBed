@@ -1,0 +1,10 @@
+{
+  "profile": "smoke",
+  "baseline_ref": "concat + FiLM",
+  "deltas": {
+    "mean_dice": -0.007,
+    "mean_3d_error_mm": 0.12
+  },
+  "baseline_mean_dice": 0.912,
+  "run_mean_dice": 0.905
+}

@@ -1,0 +1,13 @@
+experiment_id: exp_demo_baseline
+name: smoke_baseline
+model:
+  entry: models.baselines.concatenated:build
+  kwargs:
+    use_film: true
+data:
+  gold_pack: spare-gold-smoke-v1
+  profile: smoke
+train:
+  epochs: 20
+  batch_size: 8
+  lr: 1.0e-5

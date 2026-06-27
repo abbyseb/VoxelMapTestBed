@@ -1,0 +1,14 @@
+{
+  "profile": "smoke",
+  "pack_id": "spare-gold-smoke-v1",
+  "rows": [
+    { "rank": 1, "name": "concat + FiLM", "architecture": "concatenated", "film": true, "mean_dice": 0.912, "mean_3d_error_mm": 1.05 },
+    { "rank": 2, "name": "dual + FiLM", "architecture": "dual", "film": true, "mean_dice": 0.898, "mean_3d_error_mm": 1.18 },
+    { "rank": 3, "name": "separate + FiLM", "architecture": "separate", "film": true, "mean_dice": 0.891, "mean_3d_error_mm": 1.22 },
+    { "rank": 4, "name": "broadcast + FiLM", "architecture": "broadcast", "film": true, "mean_dice": 0.885, "mean_3d_error_mm": 1.31 },
+    { "rank": 5, "name": "concat", "architecture": "concatenated", "film": false, "mean_dice": 0.872, "mean_3d_error_mm": 1.45 },
+    { "rank": 6, "name": "dual", "architecture": "dual", "film": false, "mean_dice": 0.868, "mean_3d_error_mm": 1.52 },
+    { "rank": 7, "name": "separate", "architecture": "separate", "film": false, "mean_dice": 0.861, "mean_3d_error_mm": 1.58 },
+    { "rank": 8, "name": "broadcast", "architecture": "broadcast", "film": false, "mean_dice": 0.855, "mean_3d_error_mm": 1.64 }
+  ]
+}

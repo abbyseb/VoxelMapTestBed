@@ -543,7 +543,7 @@ Week:  1    2    3    4    5    6    7    8    9   10   11   12   13   14   15  
 | 1.1.6 | `MockDataProvider` reads fixtures | `vmtb.dataMode: mock` default | Extension |
 | 1.1.7 | Install VSCodium; F5 Extension Development Host | `docs/DEV_WORKFLOW.md` stub | Extension |
 
-**Week 1 done when:** Sidebar shows mock Gold manifest + 2 demo runs.
+**Week 1 done when:** Sidebar shows mock Gold manifest + 2 demo runs from `fixtures/` (F5 walkthrough — see [docs/DEV_WORKFLOW.md](docs/DEV_WORKFLOW.md)).
 
 #### Week 2 — Gold browser + experiment flow
 

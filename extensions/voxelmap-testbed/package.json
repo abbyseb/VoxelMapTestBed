@@ -57,7 +57,7 @@
     "viewsWelcome": [
       {
         "view": "vmtb.gold",
-        "contents": "Browse Gold packs and scan checklist (mock).\n[Refresh](command:vmtb.gold.refresh)"
+        "contents": "Browse Gold packs and scan checklist (mock).\n[Verify Gold](command:vmtb.gold.verify)\n[Refresh](command:vmtb.gold.refresh)"
       },
       {
         "view": "vmtb.experiments",
@@ -121,6 +121,11 @@
       }
     },
     "commands": [
+      {
+        "command": "vmtb.gold.verify",
+        "title": "TestBed: Verify Gold",
+        "icon": "$(verified)"
+      },
       {
         "command": "vmtb.initWorkspace",
         "title": "TestBed: Initialize Workspace",
