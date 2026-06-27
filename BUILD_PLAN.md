@@ -874,4 +874,20 @@ See **§8.1 Phase 1** for the full breakdown. **Start with the editor, not Gold.
 
 ---
 
+## 15. Development team & verification
+
+Every task ID in §8 follows **Developer → Tester → QA/QC** (see [docs/DEV_TEAM_WORKFLOW.md](docs/DEV_TEAM_WORKFLOW.md)).
+
+| Role | Action |
+|------|--------|
+| Developer | Implement task ID |
+| Tester | Add `*.test.ts` / pytest |
+| QA/QC | `bash scripts/verify-task-id.sh <ID> --push` + update [docs/TASK_REGISTRY.md](docs/TASK_REGISTRY.md) |
+
+**Git:** Push **only** when tests pass (script enforces). Never push on failed verify.
+
+Cursor agent skill: `.cursor/skills/voxelmap-dev-team/SKILL.md`
+
+---
+
 *Related:* [SPARE_PublicArchive/README.md](../SPARE_PublicArchive/README.md) · LEARN-GUI-Python (clinical reference implementation)

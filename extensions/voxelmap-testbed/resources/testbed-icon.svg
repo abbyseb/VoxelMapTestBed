@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <path
+    d="M12 2L4 6.5v11L12 22l8-4.5v-11L12 2z"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M12 2v20M4 6.5l8 4.5 8-4.5M4 17.5l8-4.5 8 4.5"
+    stroke="currentColor"
+    stroke-width="1.5"
+    stroke-linejoin="round"
+  />
+</svg>

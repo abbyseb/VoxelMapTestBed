@@ -2,6 +2,8 @@
 ._*
 *.swp
 node_modules/
+dist/
+*.vsix
 __pycache__/
 .venv/
 venv/

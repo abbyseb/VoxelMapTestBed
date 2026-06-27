@@ -1,0 +1,165 @@
+{
+  "name": "voxelmap-testbed",
+  "displayName": "VoxelMap TestBed",
+  "description": "Developer benchmark harness — Gold browser, experiments, results (mock mode for Phase 1)",
+  "version": "0.1.0",
+  "publisher": "voxelmap",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abbyseb/VoxelMapTestBed.git",
+    "directory": "extensions/voxelmap-testbed"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "voxelmap-testbed",
+          "title": "VoxelMap TestBed",
+          "icon": "resources/testbed-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "voxelmap-testbed": [
+        {
+          "id": "vmtb.gold",
+          "name": "Gold",
+          "icon": "$(database)"
+        },
+        {
+          "id": "vmtb.experiments",
+          "name": "Experiments",
+          "icon": "$(beaker)"
+        },
+        {
+          "id": "vmtb.runs",
+          "name": "Runs",
+          "icon": "$(history)"
+        },
+        {
+          "id": "vmtb.leaderboard",
+          "name": "Leaderboard",
+          "icon": "$(list-ordered)"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "vmtb.gold",
+        "contents": "Browse Gold packs and scan checklist (mock).\n[Refresh](command:vmtb.gold.refresh)"
+      },
+      {
+        "view": "vmtb.experiments",
+        "contents": "Experiment YAML specs.\n[Refresh](command:vmtb.experiments.refresh)"
+      },
+      {
+        "view": "vmtb.runs",
+        "contents": "Train/test run outputs.\n[Refresh](command:vmtb.runs.refresh)"
+      },
+      {
+        "view": "vmtb.leaderboard",
+        "contents": "Compare runs vs baselines.\n[Refresh](command:vmtb.leaderboard.refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vmtb.gold.refresh",
+          "when": "view == vmtb.gold",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.experiments.refresh",
+          "when": "view == vmtb.experiments",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.runs.refresh",
+          "when": "view == vmtb.runs",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.leaderboard.refresh",
+          "when": "view == vmtb.leaderboard",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VoxelMap TestBed",
+      "properties": {
+        "vmtb.dataMode": {
+          "type": "string",
+          "enum": [
+            "mock",
+            "live"
+          ],
+          "default": "mock",
+          "description": "mock = read fixtures/ ; live = backend + Gold path (Phase 4+)"
+        },
+        "vmtb.goldPath": {
+          "type": "string",
+          "default": "",
+          "description": "Local folder containing spare-gold manifest and packs (live mode)"
+        },
+        "vmtb.fixturesPath": {
+          "type": "string",
+          "default": "",
+          "description": "Override path to fixtures/ (mock mode). Empty = bundled workspace fixtures."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "vmtb.showOutput",
+        "title": "TestBed: Show Output Channel"
+      },
+      {
+        "command": "vmtb.gold.refresh",
+        "title": "TestBed: Refresh Gold",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vmtb.experiments.refresh",
+        "title": "TestBed: Refresh Experiments",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vmtb.runs.refresh",
+        "title": "TestBed: Refresh Runs",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vmtb.leaderboard.refresh",
+        "title": "TestBed: Refresh Leaderboard",
+        "icon": "$(refresh)"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "vscode:prepublish": "node esbuild.js --production",
+    "check-types": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.21.5",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.5"
+  }
+}
