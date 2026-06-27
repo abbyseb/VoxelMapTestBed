@@ -88,6 +88,7 @@ All settings:
 
 ## Walkthrough (G-UI preview)
 
+0. On first launch, **Welcome** webview opens (or **TestBed: Open Welcome**). Confirms mock/demo mode and quick-start buttons.
 1. **Gold** → expand `spare-demo-v1` → **Checklist** → check/uncheck scans; click **Tag filter** or the filter icon in the view title.
 2. Click **Verify Gold** in Gold view welcome / command palette.
 3. **Experiments** → `smoke.yaml`, `smoke_dual_film.yaml`.
@@ -101,6 +102,7 @@ Optional: **TestBed: Initialize Workspace** copies `workspace-template/` into yo
 
 | Command | ID |
 |---------|-----|
+| Open Welcome | `vmtb.welcome.open` |
 | Verify Gold | `vmtb.gold.verify` |
 | Filter Gold tags | `vmtb.gold.filterTags` |
 | Run experiment (mock) | `vmtb.experiment.run` |

@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { registerSidebarViews } from './views/registerViews';
+import { openWelcomeWebview, showWelcomeOnFirstRun } from './webviews/registerWelcomeWebview';
 import { registerInitWorkspaceCommand } from './workspace/registerInitWorkspace';
 
 const OUTPUT_CHANNEL_NAME = 'VoxelMap TestBed';
@@ -15,7 +16,7 @@ export function activate(context: vscode.ExtensionContext): void {
   outputChannel.appendLine('VoxelMap TestBed extension activated.');
   outputChannel.appendLine(`dataMode: ${dataMode}`);
 
-  registerSidebarViews(context);
+  const views = registerSidebarViews(context);
   void registerInitWorkspaceCommand(context);
 
   context.subscriptions.push(
@@ -23,11 +24,13 @@ export function activate(context: vscode.ExtensionContext): void {
     vscode.commands.registerCommand('vmtb.showOutput', () => {
       outputChannel.show(true);
     }),
+    vscode.commands.registerCommand('vmtb.welcome.open', () => {
+      const packId = views?.data.getPackLabel();
+      openWelcomeWebview(context, dataMode, packId);
+    }),
   );
 
-  void vscode.window.showInformationMessage(
-    `VoxelMap TestBed ready (${dataMode} mode) — open the TestBed activity bar icon`,
-  );
+  void showWelcomeOnFirstRun(context, views?.data.getPackLabel());
 }
 
 export function deactivate(): void {

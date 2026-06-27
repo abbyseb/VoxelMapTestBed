@@ -153,6 +153,11 @@
     },
     "commands": [
       {
+        "command": "vmtb.welcome.open",
+        "title": "TestBed: Open Welcome",
+        "icon": "$(home)"
+      },
+      {
         "command": "vmtb.gold.verify",
         "title": "TestBed: Verify Gold",
         "icon": "$(verified)"

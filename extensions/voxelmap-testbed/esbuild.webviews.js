@@ -9,6 +9,7 @@ const buildOptions = {
     results: 'webviews/results/main.ts',
     leaderboard: 'webviews/leaderboard/main.ts',
     train: 'webviews/train/main.ts',
+    welcome: 'webviews/welcome/main.ts',
   },
   bundle: true,
   outdir: 'dist/webviews',

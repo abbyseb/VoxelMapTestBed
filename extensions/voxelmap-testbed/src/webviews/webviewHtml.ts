@@ -12,7 +12,7 @@ export function buildWebviewDocument(
   extensionUri: vscode.Uri,
   options: {
     title: string;
-    script: 'results.js' | 'leaderboard.js' | 'train.js';
+    script: 'results.js' | 'leaderboard.js' | 'train.js' | 'welcome.js';
     data: unknown;
     extraHead?: string;
   },

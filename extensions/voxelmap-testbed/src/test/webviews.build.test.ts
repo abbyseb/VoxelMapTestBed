@@ -9,7 +9,7 @@ const EXT = resolve(__dirname, '../..');
 describe('1.3.1 webview build pipeline', () => {
   it('esbuild.webviews.js produces bundled client scripts', () => {
     execSync('node esbuild.webviews.js', { cwd: EXT, stdio: 'pipe' });
-    for (const name of ['results.js', 'leaderboard.js', 'train.js']) {
+    for (const name of ['results.js', 'leaderboard.js', 'train.js', 'welcome.js']) {
       expect(existsSync(join(EXT, 'dist/webviews', name))).toBe(true);
     }
   });
