@@ -12,12 +12,20 @@
 
 ## product.json (key fields)
 
-- `nameShort` / `nameLong`: VoxelMap TestBed
-- `applicationName`: voxelmap-testbed
-- `darwinBundleIdentifier`: com.voxelmap.testbed
-- `urlProtocol`: voxelmap-testbed
-- `extensionsGallery`: Open VSX (default VSCodium)
-- Bundled extension: inject `voxelmap-testbed.vsix` in build script
+Draft file: [`vscodium-build/product.json`](../vscodium-build/product.json) (Phase 2.3 — used when `vscodium-build/` fork is wired in Phase 6).
+
+| Field | Value |
+|-------|-------|
+| `nameShort` / `nameLong` | VoxelMap TestBed |
+| `applicationName` | voxelmap-testbed |
+| `dataFolderName` | .voxelmap-testbed |
+| `darwinBundleIdentifier` | com.voxelmap.testbed |
+| `urlProtocol` | voxelmap-testbed |
+| `linuxIconName` | voxelmap-testbed |
+| `extensionsGallery` | Open VSX (default VSCodium) |
+| Bundled extension | inject `voxelmap-testbed.vsix` in build script |
+
+Full draft JSON lives in `vscodium-build/product.json`. Customize `win32*` / `linux*` fields per platform when CI matrix is added (Phase 6).
 
 See VSCodium docs on [how to build](https://github.com/VSCodium/vscodium/blob/master/docs/howto-build.md).
 

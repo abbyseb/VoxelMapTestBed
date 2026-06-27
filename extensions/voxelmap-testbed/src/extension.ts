@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { registerStatusBar } from './branding/registerStatusBar';
 import { registerSidebarViews } from './views/registerViews';
 import { openWelcomeWebview, showWelcomeOnFirstRun } from './webviews/registerWelcomeWebview';
 import { registerInitWorkspaceCommand } from './workspace/registerInitWorkspace';
@@ -18,6 +19,15 @@ export function activate(context: vscode.ExtensionContext): void {
 
   const views = registerSidebarViews(context);
   void registerInitWorkspaceCommand(context);
+
+  if (views) {
+    registerStatusBar(context, {
+      getDataMode: () =>
+        vscode.workspace.getConfiguration('vmtb').get<string>('dataMode', 'mock'),
+      getPackId: () => views.data.getPackLabel(),
+      onDidChange: views.session.onDidChange,
+    });
+  }
 
   context.subscriptions.push(
     outputChannel,

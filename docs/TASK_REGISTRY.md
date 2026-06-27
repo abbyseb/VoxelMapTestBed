@@ -50,6 +50,13 @@ Every BUILD_PLAN task ID must be listed here before marking **verified: yes**.
 | 1.3.7 | Result commands | implemented | commands.test.ts | yes | 2026-06-27 | agent |
 | 1.3.8 | build-extension.sh | implemented | optional | yes | 2026-06-27 | agent |
 
----
+## Phase 2
 
-*Add Phase 2+ rows when those tasks start.*
+| ID | Description | Status | Tests | Verified | Date | Verifier |
+|----|-------------|--------|-------|----------|------|----------|
+| 2.1 | Icon + color theme | implemented | brandResources.test.ts | yes | 2026-06-27 | agent |
+| 2.2 | Status bar mode + pack | implemented | statusBar.test.ts | yes | 2026-06-27 | agent |
+| 2.3 | Draft product.json | implemented | productJson.test.ts | yes | 2026-06-27 | agent |
+| 2.4 | UI feedback doc | implemented | uiFeedback.test.ts | yes | 2026-06-27 | agent |
+
+---

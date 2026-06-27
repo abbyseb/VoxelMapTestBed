@@ -4,6 +4,11 @@ export enum ProgressLocation {
   Notification = 15,
 }
 
+export enum StatusBarAlignment {
+  Left = 1,
+  Right = 2,
+}
+
 export enum TreeItemCheckboxState {
   Unchecked = 0,
   Checked = 1,
@@ -80,12 +85,21 @@ vi.mock('vscode', () => {
         await task({ report: vi.fn() });
       },
     ),
+    createStatusBarItem: vi.fn(() => ({
+      text: '',
+      tooltip: '',
+      command: '',
+      show: vi.fn(),
+      hide: vi.fn(),
+      dispose: vi.fn(),
+    })),
   };
 
   const workspace = {
     getConfiguration: vi.fn(() => ({
       get: vi.fn((_key: string, defaultValue: unknown) => defaultValue),
     })),
+    onDidChangeConfiguration: vi.fn(() => ({ dispose: vi.fn() })),
   };
 
   const commands = {
@@ -94,6 +108,7 @@ vi.mock('vscode', () => {
 
   return {
     ProgressLocation,
+    StatusBarAlignment,
     TreeItemCheckboxState,
     TreeItemCollapsibleState,
     ThemeIcon,

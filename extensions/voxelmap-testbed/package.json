@@ -16,11 +16,19 @@
   "categories": [
     "Other"
   ],
+  "icon": "resources/testbed-icon.svg",
   "activationEvents": [
     "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "themes": [
+      {
+        "label": "VoxelMap TestBed",
+        "uiTheme": "vs-dark",
+        "path": "./themes/voxelmap-testbed-color-theme.json"
+      }
+    ],
     "viewsContainers": {
       "activitybar": [
         {

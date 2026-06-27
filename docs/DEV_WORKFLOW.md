@@ -98,6 +98,8 @@ All settings:
 
 Optional: **TestBed: Initialize Workspace** copies `workspace-template/` into your open folder.
 
+**Branding (Phase 2):** Status bar shows `TestBed · mock · spare-demo-v1` (click → Welcome). Optional color theme: **Preferences → Theme → Color Theme → VoxelMap TestBed**.
+
 ## Commands
 
 | Command | ID |
@@ -137,5 +139,7 @@ See [DEV_TEAM_WORKFLOW.md](DEV_TEAM_WORKFLOW.md) and [TASK_REGISTRY.md](TASK_REG
 
 ## Next phases
 
-- **Phase 1.2+** — checklist, mock run job, webviews  
-- **Phase 4** — `vmtb.dataMode: live` + real Gold on T7  
+- **G-UI** — manual walkthrough + [UI_FEEDBACK.md](UI_FEEDBACK.md) sign-off  
+- **Phase 3** — real Gold + `vmtb` CLI when smoke data on T7 is ready  
+- **Phase 4** — `vmtb.dataMode: live` + real backend  
+- **Phase 6** — branded VSCodium installer ([VSCODIUM_FORK.md](VSCODIUM_FORK.md))

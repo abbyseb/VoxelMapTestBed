@@ -39,6 +39,15 @@ QA uses this with [TASK_REGISTRY.md](../../docs/TASK_REGISTRY.md) and `scripts/v
 | **1.3.7** | Commands vmtb.results.open etc. | `commands.test.ts` |
 | **1.3.8** | `scripts/build-extension.sh` produces .vsix | `tests: optional` (shell smoke) |
 
+## Phase 2 — Brand polish
+
+| ID | Acceptance criteria | Required tests |
+|----|---------------------|----------------|
+| **2.1** | TestBed icon + color theme in `resources/`, `themes/` | `brandResources.test.ts` |
+| **2.2** | Status bar `TestBed · {mode} · {pack}`; click → Welcome | `statusBar.test.ts` |
+| **2.3** | Draft `vscodium-build/product.json` + `VSCODIUM_FORK.md` | `productJson.test.ts` |
+| **2.4** | `docs/UI_FEEDBACK.md` G-UI review log | `uiFeedback.test.ts` |
+
 ## Gates
 
 | Gate | Criteria |

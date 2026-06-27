@@ -1,0 +1,18 @@
+{
+  "name": "VoxelMap TestBed",
+  "type": "dark",
+  "colors": {
+    "activityBar.background": "#141c26",
+    "activityBar.foreground": "#90a4ae",
+    "activityBar.inactiveForeground": "#607d8b",
+    "activityBar.activeBorder": "#4fc3f7",
+    "activityBar.activeBackground": "#1a2836",
+    "sideBar.background": "#111820",
+    "sideBarTitle.foreground": "#4fc3f7",
+    "titleBar.activeBackground": "#141c26",
+    "statusBar.background": "#0d1218",
+    "statusBar.foreground": "#b0bec5",
+    "statusBarItem.remoteBackground": "#1565c0",
+    "focusBorder": "#4fc3f7"
+  }
+}

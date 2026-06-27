@@ -1,0 +1,25 @@
+{
+  "nameShort": "VoxelMap TestBed",
+  "nameLong": "VoxelMap TestBed",
+  "applicationName": "voxelmap-testbed",
+  "dataFolderName": ".voxelmap-testbed",
+  "win32MutexName": "voxelmaptestbed",
+  "licenseName": "MIT",
+  "licenseUrl": "https://github.com/abbyseb/VoxelMapTestBed/blob/main/LICENSE",
+  "win32DirName": "VoxelMap TestBed",
+  "win32NameVersion": "VoxelMap TestBed",
+  "win32RegValueName": "VoxelMapTestBed",
+  "win32AppUserModelId": "VoxelMap.TestBed",
+  "win32ShellNameShort": "VoxelMap TestBed",
+  "darwinBundleIdentifier": "com.voxelmap.testbed",
+  "linuxIconName": "voxelmap-testbed",
+  "urlProtocol": "voxelmap-testbed",
+  "extensionAllowedProposedApi": [],
+  "extensionKind": {
+    "voxelmap.voxelmap-testbed": ["workspace"]
+  },
+  "builtInExtensions": [],
+  "linkProtectionTrustedDomains": [
+    "https://github.com/abbyseb/VoxelMapTestBed"
+  ]
+}
