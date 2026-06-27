@@ -92,7 +92,8 @@ All settings:
 2. Click **Verify Gold** in Gold view welcome / command palette.
 3. **Experiments** → `smoke.yaml`, `smoke_dual_film.yaml`.
 4. **Runs** → `exp_demo_baseline`, `exp_demo_custom` → expand for `metrics.json`.
-5. **Leaderboard** → ranked baselines + demo runs.
+5. **Leaderboard** → ranked baselines + demo runs — or command **TestBed: Open Leaderboard**.
+6. **Command Palette** → `TestBed: Open Results Viewer` / `Open Train Monitor`.
 
 Optional: **TestBed: Initialize Workspace** copies `workspace-template/` into your open folder.
 
@@ -102,6 +103,11 @@ Optional: **TestBed: Initialize Workspace** copies `workspace-template/` into yo
 |---------|-----|
 | Verify Gold | `vmtb.gold.verify` |
 | Filter Gold tags | `vmtb.gold.filterTags` |
+| Run experiment (mock) | `vmtb.experiment.run` |
+| Edit experiment YAML | `vmtb.experiment.edit` |
+| Open Results | `vmtb.results.open` |
+| Open Leaderboard | `vmtb.leaderboard.open` |
+| Open Train monitor | `vmtb.train.open` |
 | Initialize Workspace | `vmtb.initWorkspace` |
 | Refresh Gold / Experiments / Runs / Leaderboard | `vmtb.gold.refresh`, etc. |
 
