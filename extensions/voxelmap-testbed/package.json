@@ -61,7 +61,7 @@
       },
       {
         "view": "vmtb.experiments",
-        "contents": "Experiment YAML specs.\n[Refresh](command:vmtb.experiments.refresh)"
+        "contents": "Experiment YAML specs.\n[Initialize workspace](command:vmtb.initWorkspace)\n[Refresh](command:vmtb.experiments.refresh)"
       },
       {
         "view": "vmtb.runs",
@@ -121,6 +121,11 @@
       }
     },
     "commands": [
+      {
+        "command": "vmtb.initWorkspace",
+        "title": "TestBed: Initialize Workspace",
+        "icon": "$(folder-opened)"
+      },
       {
         "command": "vmtb.showOutput",
         "title": "TestBed: Show Output Channel"

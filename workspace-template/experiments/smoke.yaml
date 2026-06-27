@@ -1,0 +1,19 @@
+experiment_id: exp_smoke_baseline
+name: smoke_baseline
+model:
+  entry: models.baselines.concatenated:build
+  kwargs:
+    use_film: true
+    base_arch: concatenated
+data:
+  gold_pack: spare-gold-smoke-v1
+  profile: smoke
+  custom_scans: []
+train:
+  epochs: 20
+  batch_size: 8
+  lr: 1.0e-5
+notes: |
+  Smoke profile: train MC_V_P1_NS_01, test MC_V_P2_SC_02.
+  Phase 1 mock mode — validates experiment UI before Gold is ready.
+hypothesis: Baseline concat + FiLM matches LEARN-GUI smoke benchmark.

@@ -19,7 +19,7 @@ Every BUILD_PLAN task ID must be listed here before marking **verified: yes**.
 |----|-------------|--------|-------|----------|------|----------|
 | 1.1.1 | Extension scaffold | implemented | extension.scaffold.test.ts | yes | 2026-06-27 | agent |
 | 1.1.2 | Activity bar + sidebar views | implemented | goldTreeProvider.test.ts, sidebarViews.test.ts | yes | 2026-06-27 | agent |
-| 1.1.3 | Sample workspace template | pending | — | no | — | — |
+| 1.1.3 | Sample workspace template | implemented | workspaceTemplate.test.ts | yes | 2026-06-27 | agent |
 | 1.1.4 | fixtures/manifest.yaml | pending | — | no | — | — |
 | 1.1.5 | fixtures/runs exp_demo_* | pending | — | no | — | — |
 | 1.1.6 | MockDataProvider | pending | — | no | — | — |

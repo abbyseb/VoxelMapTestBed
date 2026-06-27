@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { registerSidebarViews } from './views/registerViews';
+import { registerInitWorkspaceCommand } from './workspace/registerInitWorkspace';
 
 const OUTPUT_CHANNEL_NAME = 'VoxelMap TestBed';
 
@@ -15,6 +16,7 @@ export function activate(context: vscode.ExtensionContext): void {
   outputChannel.appendLine(`dataMode: ${dataMode}`);
 
   registerSidebarViews(context);
+  void registerInitWorkspaceCommand(context);
 
   context.subscriptions.push(
     outputChannel,
