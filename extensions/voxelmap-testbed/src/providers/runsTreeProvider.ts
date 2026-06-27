@@ -31,9 +31,30 @@ export class RunsTreeProvider extends TestBedTreeProvider {
           a.name.endsWith('.md') ? 'markdown' :
           a.name.endsWith('.yaml') ? 'file-code' :
           a.kind === 'folder' ? 'folder' : 'file';
-        return new TestBedTreeItem(a.name, vscode.TreeItemCollapsibleState.None, {
+
+        const item = new TestBedTreeItem(a.name, vscode.TreeItemCollapsibleState.None, {
           iconId,
+          contextValue: a.name === 'notes.md' ? 'runNotes' : 'runArtifact',
         });
+        item.runId = runId;
+        item.artifactName = a.name;
+
+        if (a.name === 'notes.md') {
+          item.command = {
+            command: 'vmtb.notes.open',
+            title: 'Open notes',
+            arguments: [runId],
+          };
+          item.description = 'open panel';
+        } else if (a.name.endsWith('.yaml') || a.name.endsWith('.json')) {
+          item.command = {
+            command: 'vmtb.runs.openArtifact',
+            title: 'Open file',
+            arguments: [runId, a.name],
+          };
+        }
+
+        return item;
       });
     }
 

@@ -65,7 +65,7 @@
       },
       {
         "view": "vmtb.runs",
-        "contents": "Train/test run outputs.\n[Refresh](command:vmtb.runs.refresh)"
+        "contents": "Train/test run outputs.\n[Refresh](command:vmtb.runs.refresh)\nClick **notes.md** under a run to open the notes panel."
       },
       {
         "view": "vmtb.leaderboard",
@@ -151,6 +151,14 @@
         "command": "vmtb.gold.pickProfile",
         "title": "TestBed: Pick Gold Profile",
         "icon": "$(list-selection)"
+      },
+      {
+        "command": "vmtb.notes.open",
+        "title": "TestBed: Open Run Notes"
+      },
+      {
+        "command": "vmtb.runs.openArtifact",
+        "title": "TestBed: Open Run Artifact"
       },
       {
         "command": "vmtb.experiment.edit",

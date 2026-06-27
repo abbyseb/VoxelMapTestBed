@@ -10,6 +10,8 @@ import {
   openExperimentEditorWebview,
   openExperimentFixture,
 } from '../experiment/registerExperimentEditor';
+import { openRunNotesEditor, openRunNotesPanel } from '../notes/registerNotesPanel';
+import * as path from 'node:path';
 
 const VIEW = {
   gold: 'vmtb.gold',
@@ -114,6 +116,23 @@ export function registerSidebarViews(
     ),
     vscode.commands.registerCommand('vmtb.experiment.edit', () =>
       openExperimentEditorWebview(context, session),
+    ),
+    vscode.commands.registerCommand('vmtb.notes.open', (runId: string) => {
+      openRunNotesPanel(context, data, runId);
+      void openRunNotesEditor(data, runId);
+    }),
+    vscode.commands.registerCommand(
+      'vmtb.runs.openArtifact',
+      async (runId: string, artifactName: string) => {
+        const filePath = path.join(
+          data.getFixturesRoot(),
+          'runs',
+          runId,
+          artifactName === 'metrics.json' ? 'test/metrics.json' : artifactName,
+        );
+        const doc = await vscode.workspace.openTextDocument(vscode.Uri.file(filePath));
+        await vscode.window.showTextDocument(doc, { preview: true });
+      },
     ),
     vscode.commands.registerCommand('vmtb.experiments.refresh', () =>
       experiments.refresh(),

@@ -4,6 +4,9 @@ import * as vscode from 'vscode';
 export class TestBedTreeItem extends vscode.TreeItem {
   /** Set on Gold checklist scan rows for checkbox handling. */
   scanId?: string;
+  /** Set on Runs artifact rows. */
+  runId?: string;
+  artifactName?: string;
 
   constructor(
     label: string,

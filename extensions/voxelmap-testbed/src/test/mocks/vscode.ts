@@ -61,6 +61,16 @@ vi.mock('vscode', () => {
       onDidChangeCheckboxState: vi.fn(() => ({ dispose: vi.fn() })),
       dispose: vi.fn(),
     })),
+    createWebviewPanel: vi.fn(() => ({
+      webview: { html: '', onDidReceiveMessage: vi.fn(() => ({ dispose: vi.fn() })) },
+      onDidDispose: vi.fn((cb: () => void) => {
+        cb();
+        return { dispose: vi.fn() };
+      }),
+      reveal: vi.fn(),
+      dispose: vi.fn(),
+      title: '',
+    })),
   };
 
   const workspace = {
