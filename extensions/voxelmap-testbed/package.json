@@ -61,7 +61,7 @@
       },
       {
         "view": "vmtb.experiments",
-        "contents": "Experiment YAML specs.\n[Initialize workspace](command:vmtb.initWorkspace)\n[Refresh](command:vmtb.experiments.refresh)"
+        "contents": "Experiment YAML specs.\n[Edit preview](command:vmtb.experiment.edit)\n[Initialize workspace](command:vmtb.initWorkspace)\n[Refresh](command:vmtb.experiments.refresh)"
       },
       {
         "view": "vmtb.runs",
@@ -87,6 +87,11 @@
         {
           "command": "vmtb.gold.filterTags",
           "when": "view == vmtb.gold",
+          "group": "navigation"
+        },
+        {
+          "command": "vmtb.experiment.edit",
+          "when": "view == vmtb.experiments",
           "group": "navigation"
         },
         {
@@ -146,6 +151,15 @@
         "command": "vmtb.gold.pickProfile",
         "title": "TestBed: Pick Gold Profile",
         "icon": "$(list-selection)"
+      },
+      {
+        "command": "vmtb.experiment.edit",
+        "title": "TestBed: Edit Experiment YAML",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vmtb.experiment.open",
+        "title": "TestBed: Open Experiment File"
       },
       {
         "command": "vmtb.experiment.openPreview",

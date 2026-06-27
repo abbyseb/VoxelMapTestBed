@@ -6,6 +6,10 @@ import { GoldTreeProvider } from '../providers/goldTreeProvider';
 import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
 import { TestBedSession } from '../session/testBedSession';
+import {
+  openExperimentEditorWebview,
+  openExperimentFixture,
+} from '../experiment/registerExperimentEditor';
 
 const VIEW = {
   gold: 'vmtb.gold',
@@ -105,6 +109,12 @@ export function registerSidebarViews(
       });
       await vscode.window.showTextDocument(doc, { preview: true });
     }),
+    vscode.commands.registerCommand('vmtb.experiment.open', (fileName: string) =>
+      openExperimentFixture(data, fileName),
+    ),
+    vscode.commands.registerCommand('vmtb.experiment.edit', () =>
+      openExperimentEditorWebview(context, session),
+    ),
     vscode.commands.registerCommand('vmtb.experiments.refresh', () =>
       experiments.refresh(),
     ),

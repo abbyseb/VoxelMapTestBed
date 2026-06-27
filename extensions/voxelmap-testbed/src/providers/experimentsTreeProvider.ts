@@ -56,8 +56,8 @@ export class ExperimentsTreeProvider extends TestBedTreeProvider {
           description: summary || 'preview.yaml',
           iconId: 'edit',
           command: {
-            command: 'vmtb.experiment.openPreview',
-            title: 'Open preview',
+            command: 'vmtb.experiment.edit',
+            title: 'Edit experiment preview',
           },
         }),
       ];

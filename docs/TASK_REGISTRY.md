@@ -32,7 +32,7 @@ Every BUILD_PLAN task ID must be listed here before marking **verified: yes**.
 | 1.2.1 | Gold tree from manifest | implemented | goldTreeProvider.test.ts, demoScans.test.ts, demoDataProvider.test.ts | yes | 2026-06-27 | agent |
 | 1.2.2 | Scan checklist | implemented | goldChecklist.test.ts, goldTreeProvider.test.ts | yes | 2026-06-27 | agent |
 | 1.2.3 | Profile picker | implemented | profiles.test.ts | yes | 2026-06-27 | agent |
-| 1.2.4 | Experiment editor | pending | — | no | — | — |
+| 1.2.4 | Experiment editor | implemented | experimentEditor.test.ts | yes | 2026-06-27 | agent |
 | 1.2.5 | Notes panel | pending | — | no | — | — |
 | 1.2.6 | Simulated run job | pending | — | no | — | — |
 | 1.2.7 | Welcome webview | pending | — | no | — | — |
