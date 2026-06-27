@@ -123,6 +123,7 @@ See [DEV_TEAM_WORKFLOW.md](DEV_TEAM_WORKFLOW.md) and [TASK_REGISTRY.md](TASK_REG
 |-------|-----|
 | Sidebar empty / “fixtures not found” | Open **VoxelMapTestBed** repo root as workspace, or set `vmtb.fixturesPath` |
 | Demo mode empty | Set `vmtb.dataMode` to `demo` and `vmtb.demoPath` to your DEMO folder |
+| Mock run “open workspace folder” | In **[Extension Development Host]**: File → Open Folder → `VoxelMapTestBed`, then reload. Or rely on auto-fallback to `VoxelMapTestBed/runs/` after this fix (F5 again). |
 | F5 fails to compile | Run `npm install && npm run compile` |
 | AppleDouble `._*` files on T7 | Ignore; real files have no `._` prefix |
 

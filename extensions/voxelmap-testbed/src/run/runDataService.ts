@@ -66,4 +66,12 @@ export class RunDataService {
     const full = path.join(base, rel);
     return fs.existsSync(full) ? full : undefined;
   }
+
+  resolveRunRoot(runId: string): string | undefined {
+    return resolveRunRoot(
+      this.data.getFixturesRoot(),
+      this.workspaceRoot,
+      runId,
+    );
+  }
 }

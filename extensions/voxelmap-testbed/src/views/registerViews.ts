@@ -10,7 +10,12 @@ import { ExperimentsTreeProvider } from '../providers/experimentsTreeProvider';
 import { GoldTreeProvider } from '../providers/goldTreeProvider';
 import { LeaderboardTreeProvider } from '../providers/leaderboardTreeProvider';
 import { RunsTreeProvider } from '../providers/runsTreeProvider';
-import { runSimulatedExperiment } from '../run/registerMockRunJob';
+import { runSimulatedExperiment, getInitialMockRunsRoot } from '../run/registerMockRunJob';
+import {
+  openLeaderboardWebview,
+  openResultsViewer,
+  openTrainMonitor,
+} from '../webviews/registerWebviews';
 import { RunDataService } from '../run/runDataService';
 import { TestBedSession } from '../session/testBedSession';
 
@@ -52,7 +57,7 @@ export function registerSidebarViews(
     return undefined;
   }
 
-  const workspaceRoot = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
+  const workspaceRoot = getInitialMockRunsRoot(context);
   const session = new TestBedSession(data);
   const runService = new RunDataService(data, workspaceRoot);
   const gold = new GoldTreeProvider(data, session);
@@ -122,7 +127,7 @@ export function registerSidebarViews(
       openExperimentEditorWebview(context, session),
     ),
     vscode.commands.registerCommand('vmtb.experiment.run', async () => {
-      const runId = await runSimulatedExperiment(data, session, runService);
+      const runId = await runSimulatedExperiment(context, data, session, runService);
       if (runId) {
         void vscode.window.showInformationMessage(`Mock run created: ${runId}`);
         runs.refresh();
@@ -154,6 +159,15 @@ export function registerSidebarViews(
       experiments.refresh(),
     ),
     vscode.commands.registerCommand('vmtb.runs.refresh', () => runs.refresh()),
+    vscode.commands.registerCommand('vmtb.results.open', (runId?: string) =>
+      openResultsViewer(context, runService, runId),
+    ),
+    vscode.commands.registerCommand('vmtb.leaderboard.open', () =>
+      openLeaderboardWebview(context, data, runService),
+    ),
+    vscode.commands.registerCommand('vmtb.train.open', () =>
+      openTrainMonitor(context, data),
+    ),
     vscode.commands.registerCommand('vmtb.leaderboard.refresh', () =>
       leaderboard.refresh(),
     ),

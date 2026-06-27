@@ -3,6 +3,7 @@
 *.swp
 node_modules/
 dist/
+release/
 *.vsix
 __pycache__/
 .venv/
@@ -10,3 +11,4 @@ venv/
 *.pyc
 .env
 .env.*
+runs/

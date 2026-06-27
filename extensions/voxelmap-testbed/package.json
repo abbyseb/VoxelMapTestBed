@@ -143,6 +143,11 @@
           "type": "string",
           "default": "",
           "description": "Override path to fixtures/ (mock mode). Empty = bundled workspace fixtures."
+        },
+        "vmtb.mockRunsWorkspace": {
+          "type": "string",
+          "default": "",
+          "description": "Folder where mock runs/ are written. Empty = workspace folder or VoxelMapTestBed repo root."
         }
       }
     },
@@ -164,6 +169,21 @@
       {
         "command": "vmtb.runs.openArtifact",
         "title": "TestBed: Open Run Artifact"
+      },
+      {
+        "command": "vmtb.results.open",
+        "title": "TestBed: Open Results Viewer",
+        "icon": "$(graph)"
+      },
+      {
+        "command": "vmtb.leaderboard.open",
+        "title": "TestBed: Open Leaderboard",
+        "icon": "$(list-ordered)"
+      },
+      {
+        "command": "vmtb.train.open",
+        "title": "TestBed: Open Train Monitor",
+        "icon": "$(pulse)"
       },
       {
         "command": "vmtb.experiment.run",
@@ -224,7 +244,8 @@
     ]
   },
   "scripts": {
-    "compile": "node esbuild.js",
+    "compile": "node esbuild.js && node esbuild.webviews.js",
+    "compile:webviews": "node esbuild.webviews.js",
     "watch": "node esbuild.js --watch",
     "vscode:prepublish": "node esbuild.js --production",
     "check-types": "tsc --noEmit",

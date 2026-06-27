@@ -41,14 +41,14 @@ Every BUILD_PLAN task ID must be listed here before marking **verified: yes**.
 
 | ID | Description | Status | Tests | Verified | Date | Verifier |
 |----|-------------|--------|-------|----------|------|----------|
-| 1.3.1 | Webview build pipeline | pending | — | no | — | — |
-| 1.3.2 | ResultsViewer | pending | — | no | — | — |
-| 1.3.3 | Polar gantry plot | pending | — | no | — | — |
-| 1.3.4 | Performance trace | pending | — | no | — | — |
-| 1.3.5 | Leaderboard | pending | — | no | — | — |
-| 1.3.6 | TrainMonitor | pending | — | no | — | — |
-| 1.3.7 | Result commands | pending | — | no | — | — |
-| 1.3.8 | build-extension.sh | pending | optional | no | — | — |
+| 1.3.1 | Webview build pipeline | implemented | webviews.build.test.ts | yes | 2026-06-27 | agent |
+| 1.3.2 | ResultsViewer | implemented | resultsViewer.test.ts | no | — | — |
+| 1.3.3 | Polar gantry plot | implemented | gantryPlot.test.ts | no | — | — |
+| 1.3.4 | Performance trace | implemented | performanceTrace.test.ts | no | — | — |
+| 1.3.5 | Leaderboard webview | implemented | leaderboard.test.ts | no | — | — |
+| 1.3.6 | TrainMonitor | implemented | trainMonitor.test.ts | no | — | — |
+| 1.3.7 | Result commands | implemented | commands.test.ts | no | — | — |
+| 1.3.8 | build-extension.sh | implemented | optional | no | — | — |
 
 ---
 
